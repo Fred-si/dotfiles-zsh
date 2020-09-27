@@ -1,0 +1,71 @@
+#!/bin/zsh
+function pi() { # Connection au pi via nfs et montage/démontage
+	function usage() { # Affiche l'aide
+
+		echo "\
+Utilisation : ${fg[red]}pi ${fg[green]}[ehmsu]${fg[white]}
+La Fonction ne prend qu'une seule option et pas de paramètre.
+
+Utilisé sans option, se connecte au pi via ssh.
+		
+Options :
+${fg[red]}e	${fg[white]}Affiche l'état (monté/non monté) du système de fichier distant (identique à s)
+${fg[red]}h	${fg[white]}Affiche cette aide
+${fg[red]}m	${fg[white]}Monte le système de fichier distant
+${fg[red]}s	${fg[white]}Affiche l'état (monté/non monté) du système de fichier distant
+${fg[red]}u	${fg[white]}Démonte le système de fichier distant
+"
+	}
+
+	if [[ ! -n $@ ]]; then
+		ssh pi
+
+	elif (( $# > 1 )); then
+		usage
+
+	else
+		case $1 in
+			e) # Affiche l'état du système de fichiers (identique à s)
+				if grep -q "pi:/srv/nfs4/elements" /etc/mtab; then
+					echo "Le système de fichier est monté"
+				else
+					echo "Le système de fichier n'est pas monté"
+				fi
+				;;
+
+			h) # Affiche l'aide
+				usage
+				;;
+
+			m) # Monte le systeme de fichier
+				if  ! grep -q 'pi:/srv/nfs4/elements' /etc/mtab; then
+					sudo mount pi:/srv/nfs4/elements $HOME/médias_amovibles/pi
+				else
+					echo "Le systeme est déjà monté"
+				fi
+				;;
+
+			s) # Affiche l'état du système de fichiers (identique à e)
+				if grep -q 'pi:/srv/nfs4/elements' /etc/mtab; then
+					echo "Le système de fichier est monté"
+				else
+					echo "Le système de fichier n'est pas monté"
+				fi
+				;;
+
+			u) # Démonte le systeme de fichier
+				if grep -q 'pi:/srv/nfs4/elements' /etc/mtab; then
+					sudo umount $HOME/médias_amovibles/pi
+				else
+					echo "Le systeme n'est pas monté"
+				fi
+				;;
+
+			*)
+				echo "Option non reconnue"
+				usage
+		esac
+	fi
+}
+
+# vim: foldmethod=syntax

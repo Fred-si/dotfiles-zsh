@@ -1,0 +1,33 @@
+#!/bin/zsh
+battery() { # Crée une variable BATTERY_LEVEL qui contient le niveau de batterie actuel
+	BATTERY_LEVEL=''
+
+	local batteries bat capacity
+	batteries=( /sys/class/power_supply/BAT*(N) )
+
+	if (( $#batteries > 0 )) ; then
+		for bat in $batteries ; do
+			capacity=$(< $bat/capacity)
+
+			case $(< $bat/status) in
+			Charging)
+				BATTERY_LEVEL+="^"
+				;;
+			Discharging)
+				if (( capacity < 20 )) ; then
+					BATTERY_LEVEL+="!v"
+				else
+					BATTERY_LEVEL+="v"
+				fi
+				;;
+			*) # Full, Unknown
+				BATTERY_LEVEL+="="
+				;;
+			esac
+
+			BATTERY_LEVEL+="${capacity}%%"
+		done
+	fi
+}
+
+# vim: foldmethod=syntax

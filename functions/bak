@@ -1,0 +1,10 @@
+#!/bin/zsh
+function bak() { # Crée une archive tar de chaque fichier passé en  paramètre
+	date=$(date "+%Y-%m-%d_%H-%M-%S")
+
+	for file in $*; do
+		tar -cvf ${file#/}_$date.tar ${file}
+	done
+}
+
+# vim: foldmethod=syntax

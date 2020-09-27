@@ -1,0 +1,35 @@
+#!/bin/zsh
+upgrade() { # Met à jour un système Archlinux
+	if [[ $USER != 'root' ]]; then
+		su -c 'source $HOME/.zshrc && upgrade' -l
+		return 0
+	fi
+
+	log_file='/var/log/last_upgrade.log'
+	if [[ -e $log_file ]]; then
+		echo -n "Dernière mise à jour: "
+		cat $log_file
+	fi
+		
+	complete=false
+	pacman -Syu && complete=true
+	if [[ $complete == true ]]; then
+		date > $log_file
+		chmod o+r $log_file
+	fi
+		
+	pacdiff
+
+	echo "\n"
+	paccache -dvk3
+
+	blink_text="\033[5m"
+	echo "\n\n${fg[yellow]}Supprimer les paquets obsolètes du cache ? ${blink_text}[O|n]${reset_color}\007"
+	read -ks delete
+
+	if [[ $delete != 'n' ]];then
+		paccache -rk3
+	fi
+}
+
+# vim: foldmethod=syntax

@@ -1,0 +1,22 @@
+#!/bin/zsh
+function hgrep() { # Renvoie toutes les occurence de $1 dans l’historique zsh
+	# Remplace le timestamp par un format de date lisible
+	function usage() {
+		echo "Usage : ${0} pattern"
+		exit 1
+	}
+
+	
+	(
+	setopt extendedglob histsubstpattern
+
+	IFS=$'\n'
+	lines=($(grep -h "${@}" ${HOME}/.zsh_history(\.bak)# |sort -u))
+
+	for line in $lines; do
+		print -r ${line:gs/: (#b)([[:digit:]](#c10)):[[:digit:]];/'$(date -d @${match[1]} +"%d-%m-%y %H:%M:%S  ")'/}
+	done |sed "s/$@/${fg[red]}${bold_color}&${reset_color}/"
+	)
+}
+
+# vim: foldmethod=syntax: ft=zsh

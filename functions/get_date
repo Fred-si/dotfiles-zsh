@@ -1,0 +1,6 @@
+#!/bin/zsh
+function get_date() { # Renvoie la date et l'heure au format YYYY-MM-DD_HH-MM
+	echo $(date "+%Y-%m-%d_%H-%M")
+}
+
+# vim: foldmethod=syntax

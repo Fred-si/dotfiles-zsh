@@ -1,0 +1,10 @@
+#!/bin/zsh
+function smsclip() { # Envoie par sms le contenue du presse papier
+	script="/usr/bin/sendsms"
+
+	[[ -e $script ]] \
+		&& sendsms "$(xclip -o -selection c)" \
+		|| echo "ERREUR, le script $script ne peut être exécuté"
+}
+
+# vim: foldmethod=syntax

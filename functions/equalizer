@@ -1,0 +1,8 @@
+#!/bin/zsh
+function equalizer() {
+	pacmd load-module module-equalizer-sink
+	pacmd load-module module-dbus-protocol
+	qpaeq
+}
+
+# vim: foldmethod=syntax

@@ -1,0 +1,10 @@
+#!/bin/zsh
+function bind() { # Cherche un raccourcis clavier zsh
+	if (( $# == 0 )); then
+		echo 'Erreur, la fonction prend au moins un paramètre'
+	fi
+
+	grep -i "$@" ~/.zsh/liste_bindkeys_e_a_etudier.txt
+}
+
+# vim: foldmethod=syntax

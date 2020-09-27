@@ -1,0 +1,47 @@
+#!/bin/zsh
+function compte_fichiers() { # Compter des fichier
+	# Cette fonction compte en boucle les fichiers contenue dans le dossier courant et ses sous dossiers ou dans le dossier passé en paramètre
+	function usage() {
+		echo "Usage : ${0} [-i interval] [-p pid] directori"
+		exit 1
+	}
+
+	dir=.
+	interval=60
+	pid=$$
+	while getopts i:p: opts; do
+		case $opts in
+			i)	interval=$OPTARG;;
+			p)	pid=$OPTARG;;
+			?)	usage;;
+		esac
+	done
+
+	shift $(( $OPTIND - 1 ))
+	
+	if [[ -n ${1} ]]; then
+		dir=${1}
+	fi
+
+	if [[ ! -d ${dir} ]]; then
+		usage
+	fi
+
+	color=${fg[yellow]}
+	nocolor=${reset_color}
+
+	while [[ -n "$(ps --no-headers --pid ${pid})" ]]; do
+		file_list=$(du -shc ${dir}/**/*(.D))
+
+		nb_de_fichiers=$(( $(echo ${file_list} | wc -l) - 1 ))
+		taille_fichiers=$(echo ${file_list} | tail -n 1 | cut -f 1)
+
+		date=$(date "+%H:%M:%S")
+
+		echo "${date} : Il reste ${color}${nb_de_fichiers} ${nocolor} fichiers, pour un poid total de ${color}${taille_fichiers}${nocolor}"
+
+		sleep ${interval}
+	done					
+}
+
+# vim: foldmethod=syntax

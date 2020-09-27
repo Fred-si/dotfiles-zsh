@@ -1,0 +1,19 @@
+#!/bin/zsh
+# Cherche les information du paquet dans la base de
+# donnée locale (pacman -Qi), si le paquet n’est pas
+# trouvé, cherche dans la base des dépot
+
+pacinfo() {
+    local pacinfo=$(pacman -Qi $* 2>/dev/null)
+    if [[ -n $pacinfo ]]; then
+        setopt histsubstpattern
+        # Affiche Installé en vert à la fin de la première ligne
+        print "${pacinfo/(#b)(Nom #: [^[:IFS:]]#)/${match[1]} [${fg_bold[green]}Installé${reset_color}]/}"
+
+    else
+        # Affiche Non installé en rouge à la fin de la première ligne
+        pacman -Si $* \
+            |sed -E '1 s/.*/& ['"$fg_bold[red]"'Non installé'"$reset_color"']/'
+
+    fi
+}

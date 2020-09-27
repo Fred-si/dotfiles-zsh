@@ -1,0 +1,16 @@
+#!/bin/zsh
+function bac_a_sable() { # Crée un hardlink de tout les fichiers présent dans le répertoire courant dans un dossier bac_a_sable et se place dans ce dossier.
+	dossier_temporaire="bac_a_sable"
+	if [[ ${PWD:t} == $dossier_temporaire ]]; then
+		cd ..
+		rm *(.)
+		mv $dossier_temporaire/*(D) ./
+		rmdir $dossier_temporaire
+	elif [[ ! -e $dossier_temporaire ]]; then
+		mkdir $dossier_temporaire
+		ln *(.D) $dossier_temporaire
+		cd $dossier_temporaire
+	fi
+}
+
+# vim: foldmethod=syntax

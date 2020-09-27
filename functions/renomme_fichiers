@@ -1,0 +1,50 @@
+#!/bin/zsh
+function renomme_fichiers() { # Nettoyer les nom de fichiers
+
+if [[ "$1" == "do" ]]; then
+	commande='mv'
+else
+	commande='echo'
+fi
+
+if [[ -n "$(ls)" ]]; then
+	for nom_actuel in * ; do
+		nouveau_nom="$nom_actuel"
+		
+		nouveau_nom=$(echo $nouveau_nom | sed "s/^[-_]//g")
+		nouveau_nom=${nouveau_nom:gs/=//}
+		nouveau_nom=${nouveau_nom:gs/!//}
+		nouveau_nom=${nouveau_nom:gs/ /_/}
+		nouveau_nom=${nouveau_nom:gs/.././}
+		nouveau_nom=${nouveau_nom:gs/.-./-/}
+		nouveau_nom=${nouveau_nom:gs/_././}
+		nouveau_nom=${nouveau_nom:gs/._/_/}
+		nouveau_nom=${nouveau_nom:gs/_-_/-/}
+		nouveau_nom=${nouveau_nom:gs/-_/-/}
+		nouveau_nom=${nouveau_nom:gs/_-/-/}
+		nouveau_nom=${nouveau_nom:gs/--/-/}
+		nouveau_nom=${nouveau_nom:gs/__/_/}
+		nouveau_nom=${nouveau_nom:gs/\'/’/}
+        nouveau_nom=${nouveau_nom:gs/(/_/}
+		nouveau_nom=${nouveau_nom:gs/)/_/}
+		nouveau_nom=${nouveau_nom:gs/[/_/}
+		nouveau_nom=${nouveau_nom:gs/]/_/}
+		nouveau_nom=${nouveau_nom:gs/%/_/}
+		nouveau_nom=$(echo $nouveau_nom | sed 's/[-_\.]$//g')
+
+		nouveau_nom=${nouveau_nom:l}
+
+		if [[ $nom_actuel != $nouveau_nom ]]; then
+			if [[ $commande = 'echo' ]]; then
+				$commande "${fg[green]}$nom_actuel" "${fg[yellow]}-->>" "${fg[cyan]}$nouveau_nom"
+			else
+				$commande -- "$nom_actuel" "$nouveau_nom"
+			fi
+		fi
+
+	done
+
+fi
+}
+
+# vim: foldmethod=syntax

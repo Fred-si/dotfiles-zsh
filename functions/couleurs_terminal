@@ -1,0 +1,41 @@
+#!/bin/zsh
+function couleurs_terminal() { # prints a color table of 8bg * 8fg * 2 states (regular/bold)
+
+echo "Table for 16-color terminal escape sequences."
+echo
+echo "Background | Foreground colors"
+echo "---------------------------------------------------------------------"
+for ((bold=0;bold<=1;bold++)) do
+	echo -n "\033[0m"" \\\033[00m   | "
+	for ((fg=30;fg<=37;fg++)); do
+		if (( $bold == 0 )); then
+			echo -en "\033[${fg}m [${fg}m  "
+		else
+			echo -en "\033[1;${fg}m [1;${fg}m"
+		fi
+	done
+	echo -e "\033[0m"
+done
+echo "--------------------------------------------------------------------- "
+for ((bg=40;bg<=47;bg++)); do
+	for ((bold=0;bold<=1;bold++)) do
+		echo -n "\033[0m"" \\\033[${bg}m   | "
+		for ((fg=30;fg<=37;fg++)); do
+			if (( $bold == 0 )); then
+				echo -en "\033[${bg}m\033[${fg}m [${fg}m  "
+			else
+				echo -en "\033[${bg}m\033[1;${fg}m [1;${fg}m"
+			fi
+		done
+		echo -e "\033[0m"
+	done
+	echo "--------------------------------------------------------------------- "
+done
+for ((aspect=0;aspect<=10;aspect++)); do
+	echo -n "\033[40m\033[${aspect};31m[$aspect;31m\033[0m "
+done
+echo
+echo "--------------------------------------------------------------------- "
+}
+
+# vim: foldmethod=syntax
