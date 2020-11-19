@@ -2,6 +2,8 @@
 
 fpath=(${ZDOTDIR}/functions $fpath)
 FUNCTIONS=(
+			phpunit_watch
+
 			compte_fichiers
 			bac_a_sable
 			renomme_fichiers
