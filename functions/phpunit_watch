@@ -1,0 +1,23 @@
+#!/bin/zsh
+# 
+# Lance Php unit à chaque modification d’un fichier dans le répertoire courant
+# à l’exception du répertoire var/
+#
+# Si la fonction est appelé avec un argument il sera passé tel quel à l’option
+# --filter de php unit
+
+phpunit_watch() {
+    last=''
+
+    while sleep 1; do
+        if [[ -z $last ]] || [[ -n $(find (^var)(/) -type f -newermt $last) ]];then
+
+            clear 
+            echo -n "$fg[yellow]" && date && echo -n $reset_color
+
+            php bin/phpunit $@
+
+            last="$(date +'%Y-%m-%d %H:%M:%S')"
+        fi
+    done
+}

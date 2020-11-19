@@ -11,3 +11,5 @@ alias pss='php -S localhost:8000 -t public'
 alias sss='symfony server:start'
 alias con='symfony console'
 
+alias pu='bin/phpunit'
+alias puw='phpunit_watch'
