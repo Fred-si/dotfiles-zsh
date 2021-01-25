@@ -1,8 +1,8 @@
 #!/bin/zsh
 
 pacsearch() {
-	if [[ -e /usr/bin/yaourt ]]; then
-		yaourt -Ss $@ --color | less -RF
+	if [[ -e /usr/bin/yay ]]; then
+		yay -Ss $@ --color=always | less -RF
 
 	elif [[ -e /usr/bin/pikaur ]]; then
 		pikaur --color=always -Ss $@ | less -RF
