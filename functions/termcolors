@@ -1,0 +1,55 @@
+#!/bin/zsh
+termcolors() { # prints a color table of 8bg * 8fg * 2 states (regular/bold)
+    reset_color() {
+        echo -e "\e[0m"
+    }
+    set_color() {
+        bold=$1
+        bg=$2
+        fg=$3
+
+        echo -en "\e[${bold};${bg};${fg}m"
+    }
+    print_separation_line() {
+        printf '%.s-' {1..67}
+        echo
+    }
+    print_header() {
+        echo "Table for 16-color terminal escape sequences.\n"
+        echo "Background | Foreground colors"
+        print_separation_line
+    }
+    print_color_line() {
+        bg=$1
+        bold=$2
+        for ((fg=30; fg<=37; fg++)); do
+            set_color $bold $bg $fg
+            echo -en " [${bold};${fg}m"
+        done
+    }
+    print_lines_group() {
+        bg=$1
+
+        for ((bold=0;bold<=1;bold++)) do
+            echo -en " \\\e[${bg}m    | "
+            print_color_line $bg $bold
+            reset_color
+        done
+        print_separation_line
+    }
+
+    print_header
+    print_lines_group '00'
+
+    for ((bg=40;bg<=47;bg++)); do
+        print_lines_group $bg
+    done
+
+    for ((aspect=0;aspect<=10;aspect++)); do
+        fg=32
+        echo -en "\e[${aspect};${fg}m[$aspect;${fg}m\e[0m "
+    done
+    echo
+}
+
+# vim: foldmethod=syntax

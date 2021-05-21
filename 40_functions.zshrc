@@ -15,7 +15,7 @@ FUNCTIONS=(
 			pacsearch
 			upgrade
 
-			couleurs_terminal
+			termcolors
 			bind
 
 			get_date
