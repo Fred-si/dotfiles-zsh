@@ -110,11 +110,18 @@ if [[ $(hostname) = 'lysa' ]];then
 
 fi
 
-alias youtube-audio="youtube-dl -ix --audio-quality 0 --audio-format mp3"
-alias youtube-tel='youtube-dl -f "bestvideo[height<=720]+bestaudio" -o "%(title)s.%(ext)s" --merge-output-format mkv -w --console-title'
-
 alias sc='smsclip'
 alias -g XO='$(xclip -selection c -o)'
+
+# Youtube
+alias youtube-dl="yt-dlp"
+
+alias youtube-video="youtube-dl --merge-output-format mkv --audio-format mp3"
+alias ytv="youtube-video"
+
+alias youtube-audio="youtube-dl -x --audio-quality 0 --audio-format mp3"
+alias yta="youtube-audio"
+
 alias myt='mpv --ytdl'
 alias myta='mpv --ytdl --no-video'
 alias myc='mpv --ytdl XO'
