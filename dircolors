@@ -103,8 +103,10 @@ EXEC 01;32
 #.bat 01;32
 # Or if you want to colorize scripts even if they do not have the
 # executable bit actually set.
-#.sh 01;32
-#.csh 01;32
+.sh 01;37
+.csh 01;37
+.zsh 01;37
+.bash 01;37
  # archives or compressed (bright red)
 .tar 01;31
 .tgz 01;31
@@ -214,3 +216,13 @@ EXEC 01;32
 .opus 00;36
 .spx 00;36
 .xspf 00;36
+# Configuration files
+*rc 00;33
+*config 00;33
+*Dockerfile 00;33
+.conf 00;33
+.ini 00;33
+.yaml 00;33
+.yml 00;33
+.local 00;33
+
