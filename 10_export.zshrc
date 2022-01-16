@@ -16,10 +16,3 @@ export CORRECT_IGNORE_FILE='.*'
 
 [[ $HOST == "lysa" ]] && export BATTERY=1
 
-# Exporte PATH
-local my_path=("${HOME}/scripts" "${0%/*}/script" "${HOME}/.local/bin")
-for p in $my_path; do
-	if [[ ! "${PATH}" =~ "$p" ]] && [[ -d "$p" ]]; then
-		export PATH="${PATH}:$(readlink -f $p)"
-	fi
-done

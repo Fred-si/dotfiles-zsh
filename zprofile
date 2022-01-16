@@ -1,6 +1,23 @@
 #!/bin/zsh
 ##############################################################################
 
+export XDG_CONFIG_HOME=${HOME}/.config
+export XDG_CACHE_HOME=${HOME}/.cache
+export XDG_DATA_HOME=${HOME}/.local/share
+export LC_COLLATE=fr_FR.utf8
+
+# export path
+local my_path=("${HOME}/scripts"
+               "${0%/*}/script"
+               "${HOME}/.local/bin"
+               "${HOME}/.cargo/bin")
+
+for p in $my_path; do
+	if [[ ! "${PATH}" =~ "$p" ]] && [[ -d "$p" ]]; then
+		export PATH="${PATH}:$(readlink -f $p)"
+	fi
+done
+
 if [[ ! -n $TMUX ]]; then
 	autoload colors && colors
 	tmux start-server
