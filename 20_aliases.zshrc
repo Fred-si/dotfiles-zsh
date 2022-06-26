@@ -112,6 +112,7 @@ fi
 
 alias sc='smsclip'
 alias -g XO='$(xclip -selection c -o)'
+alias -g XI='| xclip -selection c'
 
 # Youtube
 alias youtube-dl="yt-dlp"
