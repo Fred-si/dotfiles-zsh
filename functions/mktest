@@ -1,0 +1,31 @@
+#!/usr/bin/zsh
+
+mktest() {
+    if (( ARGC > 1 )); then
+		printf 'usage: mkcd [directory-name]\n'
+        return
+    fi
+
+    case $ARGC in
+        0)
+
+            directory="/tmp/test"
+            ;;
+        1)
+            directory="/tmp/$1"
+            ;;
+        *)
+            printf 'usage: mkcd [directory-name]\n'
+            return
+            ;;
+    esac
+
+	if ! functions $func >/dev/null; then
+        # L’option -U permet de supprimer l’expansion des alias dans les
+        # fonctions
+        autoload -U $func
+	fi
+
+    mkcd $directory
+}
+

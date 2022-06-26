@@ -11,6 +11,8 @@ FUNCTIONS=(
 			bak
 
 			hgrep
+			mkcd
+			mktest
 
 			pacsearch
 			upgrade
@@ -39,4 +41,4 @@ for func in $FUNCTIONS; do
 	autoload -U $func
 done
 
-# vim: foldmethod=syntax
+# vim: foldmethod=syntax noexpandtab

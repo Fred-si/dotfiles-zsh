@@ -1,0 +1,18 @@
+#!/usr/bin/zsh
+
+mkcd () {                     
+    if (( ARGC != 1 )); then
+		printf 'usage: mkcd <new-directory>\n'
+		return 1
+	fi
+
+    target_directory=$1
+    
+	if [[ -d "$target_directory" ]]; then
+		printf '`%s'\'' already exists: cd-ing.\n' "$target_directory"
+	else
+		command mkdir -p "$target_directory"
+	fi
+
+	builtin cd "$target_directory"
+}
