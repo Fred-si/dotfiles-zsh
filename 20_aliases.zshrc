@@ -105,12 +105,6 @@
 	alias -g IX="|& curl -s -F 'f:1=<-' ix.io"
 	alias -g PT='| curl -F c=@- https://ptpb.pw/'
 
-# Docker
-    alias dc='docker-compose'
-    alias dce='dc exec'
-    alias drb='docker-compose down && docker-compose up -d --build'
-
-
 if [[ $(hostname) = 'lysa' ]];then
 	alias hdmi_enable='xrandr --output HDMI1 --mode 1920x1080'
 	alias hdmi_disable='xrandr --output HDMI1 --off'

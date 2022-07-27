@@ -3,6 +3,7 @@
 fpath=(${ZDOTDIR}/functions $fpath)
 FUNCTIONS=(
 			phpunit_watch
+			convert_id
 
 			compte_fichiers
 			bac_a_sable
