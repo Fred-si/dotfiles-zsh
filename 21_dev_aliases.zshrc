@@ -13,3 +13,6 @@ alias con='symfony console'
 
 alias pu='bin/phpunit'
 alias puw='phpunit_watch'
+
+[[ $OS_RELEASE == 'Ubuntu' ]] \
+    && alias python='python3'

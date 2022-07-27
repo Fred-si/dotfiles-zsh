@@ -107,7 +107,9 @@ prompt_forkclint_precmd () { # [[[
 	fi
 
 	# Ring a bell
-	echo -ne '\007'
+	if [[ $HOST != 'frederic' ]]; then
+	  echo -ne '\007'
+  fi
 } # ]]]
 
 prompt_forkclint_setup "$@"

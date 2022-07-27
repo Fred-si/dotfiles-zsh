@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-umask 037
+if [[ $HOST != 'frederic' ]]; then
+    umask 037
+fi
 which sudo 2>&1 >/dev/null || sudo(){$@}
 
 # Charge les fichiers du dossier .zsh
@@ -44,6 +46,7 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=magenta,bold'
 # Key binding
 bindkey -e	# Utilise les raccourcis claviers de Emacs
 bindkey "^[[3~" delete-char
+autoload edit-command-line && zle -N edit-command-line
 bindkey "^G" edit-command-line
 bindkey "^T" accept-line
 
