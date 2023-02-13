@@ -1,45 +1,38 @@
 #!/bin/zsh
 
-fpath=(${ZDOTDIR}/functions $fpath)
-FUNCTIONS=(
-			phpunit_watch
-			convert_id
+func_dir="${ZDOTDIR}/functions"
+fpath=($func_dir $fpath)
 
-			compte_fichiers
-			bac_a_sable
-			renomme_fichiers
+for file in ${func_dir}/*; do
+	[[ -d $file ]] && continue
 
-			bak
+	func=${file##*/}
 
-			hgrep
-			mkcd
-			mktest
-
-			pacsearch
-			upgrade
-
-			termcolors
-			bind
-
-			get_date
-			smsclip
-			equalizer
-		  )
-
-# Gestion du réseaux
-if [[ ! $(hostname) == "raspberrypi" ]]; then
-FUNCTIONS=( $FUNCTIONS
-			pi
-		  )
-fi
-
-for func in $FUNCTIONS; do
 	if functions $func >/dev/null; then
 		unfunction $func
 	fi
+
 	# L’option -U permet de supprimer l’expansion des alias dans les
 	# fonctions
 	autoload -U $func
 done
 
+local_func_dir="${func_dir}/local"
+if [[ -d "${local_func_dir}" ]]; then
+	fpath=($local_func_dir $fpath)
+
+	for file in ${local_func_dir}/*; do
+		[[ -d $file ]] && continue
+
+		func=${file##*/}
+
+		if functions $func >/dev/null; then
+			unfunction $func
+		fi
+
+		# L’option -U permet de supprimer l’expansion des alias dans les
+		# fonctions
+		autoload -U $func
+	done
+fi
 # vim: foldmethod=syntax noexpandtab

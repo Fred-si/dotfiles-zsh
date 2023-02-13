@@ -1,9 +1,11 @@
 #!/usr/bin/zsh
 
 mktest() {
+    usage='usage: mktest [directory-name]\n'
+
     if (( ARGC > 1 )); then
-		printf 'usage: mkcd [directory-name]\n'
-        return
+		print $usage
+        return 1
     fi
 
     case $ARGC in
@@ -15,17 +17,12 @@ mktest() {
             directory="/tmp/$1"
             ;;
         *)
-            printf 'usage: mkcd [directory-name]\n'
-            return
+            print $usage
+            return 1
             ;;
     esac
 
-	if ! functions $func >/dev/null; then
-        # L’option -U permet de supprimer l’expansion des alias dans les
-        # fonctions
-        autoload -U $func
-	fi
-
-    mkcd $directory
+    mkdir -p $directory
+    builtin cd $directory
 }
 

@@ -1,0 +1,12 @@
+#!/usr/bin/zsh
+
+get_clipboard() {
+    if [[ $1 = '--help' ]] || [[ $1 = '-h' ]]; then
+        echo "Usage: $0 ssh_host"
+        return 0
+    fi
+
+    sshHost=$1
+    ssh -o RemoteCommand=none $1 'cat ~/.tmux-clipboard' \
+        |xclip -selection clipboard -in
+}
