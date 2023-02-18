@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+print_warning() {
+    print_colored yellow "Warning: $@"
+}

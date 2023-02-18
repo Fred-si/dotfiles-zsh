@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+print_success() {
+    print_colored green "Success: $@"
+}

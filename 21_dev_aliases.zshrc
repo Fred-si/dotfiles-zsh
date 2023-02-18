@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 # Git
 alias igt='git'
@@ -12,14 +12,16 @@ alias pss='php -S localhost:8000 -t public'
 alias sss='symfony server:start'
 alias con='symfony console'
 
+# uniquement là pour une question de rétrocompatibilité
+alias test_executable='zwatch'
+
+alias zw='zwatch'
 alias pu='bin/phpunit'
 alias puw='phpunit_watch'
 
 # Python
 [[ $OS_RELEASE == 'Ubuntu' ]] \
     && alias python='python3'
-alias activate='[[ -e venv/bin/activate ]] && source venv/bin/activate'
-alias venv='python -m venv venv && activate'
 alias remove_cython='rm -rf ~/.cache/JetBrains/**/cythonExtensions'
 
 # Docker

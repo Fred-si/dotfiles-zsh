@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+print_error() {
+    print_colored --bold red "Error: $@"
+}

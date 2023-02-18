@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+print_info() {
+    print_colored cyan "Info: $@"
+}

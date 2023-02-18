@@ -1,0 +1,15 @@
+#!/usr/bin/zsh
+
+print_colored() {
+    local bold
+    if [[ "$1" = '--bold' ]]; then
+        bold=$'\033[01m'
+        shift
+    fi
+
+    color_name="$1"
+    message="${(j: :)${@[2, -1]}}"
+
+    printf "%s%s%s\n" "${bold}${fg[$color_name]}" "$message" "${reset_color}"
+}
+

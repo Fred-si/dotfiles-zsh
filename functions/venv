@@ -1,0 +1,82 @@
+#!/usr/bin/zsh
+
+# Create python virtual environnement if not exist, activate it and install
+# requirements
+venv() {
+    destroy() {
+        print_warning "Destroying virtual environnement"
+
+        local path_to_remove=(__pycache__ venv .mypy_cache)
+        local error="false"
+
+
+        if where deactivate > /dev/null; then 
+            if deactivate; then
+                print_success "Venv desactivated" 
+            else
+                print_error "Unable to desactivate venv"
+                return 1
+            fi
+        fi
+
+        print_info "Removing files"
+        for file in $path_to_remove; do
+            if [[ -e "$file" ]]; then 
+                print_info "Remove ${file}"
+                rm -r "$file"
+
+                if [[ $? -gt 0 ]]; then
+                    print_error Impossible de supprimer ${file}
+                    error="true"
+                fi
+            fi
+        done
+
+        if [[ "$error" = 'false' ]]; then 
+            print_success "Venv destroyed"
+            return 0
+        else
+            error "Something went wrong"
+            return 1
+        fi
+    }
+
+    create() {
+        if [[ -n "$VIRTUAL_ENV" ]]; then
+            print_error "Already in venv"
+            return 1
+        fi
+
+        if [[ ! -e 'venv' ]]; then
+            print_info "Venv not exist, create it"
+            python -m venv venv || return 1
+
+            if [[ ! -e 'requirements.txt' ]]; then 
+                print_info "Create requirements.txt"
+                touch requirements.txt
+            fi
+
+            if [[ ! -e 'requirements-dev.txt' ]]; then 
+                print_info "Create requirements-dev.txt"
+                echo '-r requirements.txt' > requirements-dev.txt
+            fi
+        else
+            print_info "Venv already exist, skip init"
+        fi
+
+        source venv/bin/activate || return 1
+
+        print_info "Upgrade pip"
+        pip install --upgrade pip
+
+        print_info "Install requirements"
+        pip install -r requirements-dev.txt
+    }
+
+    if [[ $1 = '-d' ]] || [[ $1 == '--destroy' ]]; then
+        destroy && return 0 || return 1
+    fi
+
+    create
+}
+

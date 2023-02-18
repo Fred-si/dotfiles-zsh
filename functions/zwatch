@@ -1,0 +1,92 @@
+#!/usr/bin/zsh
+
+zwatch() {
+    function print_help() {
+        local help=(
+            'Usage:'
+            "    $(basename $0) -h|--help"
+            "    $(basename $0) [OPTIONS] -f|--files FICHIER COMMANDE"
+            "    $(basename $0) [OPTIONS] -f|--files \"FICHIER_1 FICHIER_2 ...\" COMMANDE"
+            ' '
+            ' '
+            '-c, --clear          Efface l’écran entre chaque lancement'
+            '-d, --print-date     Affiche la date à la fin de chaque exécution'
+            '-f, --files FICHIER  Spécifier le fichier à surveiller'
+            '                         "FICHIER_1 FICHIER_2 ..."'
+            '-h, --help           Affiche cette aide'
+            '-l, --launch-first   Lance COMMANDE une première fois avant de'
+            '                         surveiller les modifications'
+            '-n, --noheader       Supprime le header'
+        )
+        print ${(j:\n:)help}
+    }
+
+    local -a files flag_help flag_clear flag_launch_first flag_no_header \
+        flag_date
+
+    zmodload zsh/zutil
+    zparseopts -a opts -D -K -F \
+        {f,-file}+:=files \
+        \
+        {c,-clear}=flag_clear \
+        {d,-print-date}=flag_date \
+        {l,-launch-first}=flag_launch_first \
+        {n,-noheader}=flag_no_header \
+        {h,-help}=flag_help
+
+    if [[ -n $flag_help ]]; then
+        print_help
+        return 0
+    fi
+
+    if [[ -z $files ]]; then
+        print_error 'Paramètre manquant, aucun fichier spécifié'
+        return 1
+    fi
+
+    local -a files_to_watch
+    for file in ${files}; do
+        if [[ "$file" =~ '^-' ]]; then
+            continue
+        fi
+
+        if [[ ! -e $file ]]; then
+            print_error "le fichier $file est introuvable"
+            return 2
+        fi
+        
+        files_to_watch=($files_to_watch $file)
+    done
+    
+    command_line="$*"
+    if [[ -z $command_line ]]; then
+        echo 'Paramètre manquant: Aucune commande spécifié'
+        return 1
+    fi
+
+
+    if [[ -n $flag_launch_first ]]; then
+        timestamp=0
+    fi
+
+    while true; do
+        for file in $files_to_watch; do
+            if [[ "$(stat -c %Y $file)" -gt "$timestamp" ]]; then
+                [[ -n $flag_clear ]] \
+                    && clear
+
+                [[ -n flag_date ]] \
+                    && echo "${fg[yellow]}$(date)${reset_color}"
+
+                [[ -z $flag_no_header ]] \
+                    && print "$command_line\n"
+
+                timestamp=$(date '+%s')
+                eval "$command_line"
+                echo
+            fi
+        done
+
+        sleep 0.2
+    done
+}
