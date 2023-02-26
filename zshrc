@@ -4,7 +4,7 @@
     && umask 037
 
 where sudo 2>&1 >/dev/null \
-    && sudo(){$@}
+    || sudo(){$@}
 
 fpath=($fpath ${ZDOTDIR})
 

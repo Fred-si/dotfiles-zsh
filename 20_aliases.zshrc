@@ -35,7 +35,7 @@ alias ping='ping -c 10'
 alias mdp='pwgen -sy 15 1 | xclip -selection c'
 
 # Zsh
-alias so='source ~/.zshrc'
+alias so="source ${ZDOTDIR}/zshrc"
 
 # Administration
 alias -g S='sudo'

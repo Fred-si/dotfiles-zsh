@@ -7,7 +7,7 @@ for dir in "${ZDOTDIR}/functions" "${ZDOTDIR}/functions/local"; do
 
 	fpath=($fpath $dir)
 
-	for file in ${dir}/*; do
+	for file in ${dir}/*(N); do
 		[[ -f $file ]] \
 			|| continue
 
