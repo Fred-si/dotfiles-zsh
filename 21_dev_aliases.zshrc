@@ -25,6 +25,9 @@ alias puw='phpunit_watch'
 alias remove_cython='rm -rf ~/.cache/JetBrains/**/cythonExtensions'
 
 # Docker
+alias dr='docker run'
+alias di='docker run -it'
+
 alias dc='docker-compose'
 alias dce='dc exec'
 alias drb='docker-compose down && docker-compose up -d --build'
