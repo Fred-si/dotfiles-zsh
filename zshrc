@@ -19,7 +19,6 @@ local dircolors_config_file="${ZDOTDIR}/dircolors" \
     ;unset dircolors_config_file
 
 # Options
-HISTFILE=~/.zsh_history
 HISTSIZE=600   # Nombre maximum de commandes conservées dans l'historique interne d'un shell
 SAVEHIST=5000  # Nombre maximum de commandes conservées dans $HISTFILE
 
