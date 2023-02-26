@@ -25,10 +25,14 @@ where bpython > /dev/null \
 if [[ -d "${XDG_CONFIG_HOME}/nvm" ]]; then
     export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
-    [[ -s "$NVM_DIR/nvm.sh" ]] \
-        && source "$NVM_DIR/nvm.sh"
+    # Pas envie de charger le fichier nvw.sh pour rien, il fait 4k lignes
+    nvm() {
+        unfunction nvm
 
-    [[ -s "$NVM_DIR/bash_completion" ]] \
-        && source "$NVM_DIR/bash_completion" 
+        [[ -s "$NVM_DIR/nvm.sh" ]] \
+            && source "$NVM_DIR/nvm.sh"
+
+        nvm $@
+    }
 fi
 
