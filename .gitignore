@@ -1,5 +1,11 @@
-/**/.zcompdump
-/**/tags
-/.idea
 /functions/local/*
-*local.zshrc
+*.local.zshrc
+
+*.zwc
+.zcompdump
+.zdirs
+.zsh_cache
+
+.idea
+.vim
+**/tags
