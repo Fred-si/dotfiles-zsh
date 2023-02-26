@@ -30,7 +30,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 	# très utile pour les complétion qui demandent beaucoup de temps
 	# comme la recherche d'un paquet aptitude install moz<tab>
 	zstyle ':completion:*' use-cache on
-	zstyle ':completion:*' cache-path ~/.zsh_cache
+	zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh"
 
 # Kill
 	# des couleurs pour la complétion

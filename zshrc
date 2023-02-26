@@ -5,15 +5,16 @@ if [[ $HOST != 'frederic' ]]; then
 fi
 which sudo 2>&1 >/dev/null || sudo(){$@}
 
-# Charge les fichiers du dossier .zsh
-ZDOTDIR="${HOME}/.zsh"
-DIRCOLORS_CONFIG_FILE="${ZDOTDIR}/dircolors"
+fpath=($fpath ${ZDOTDIR})
 
-for Fichier in ${ZDOTDIR}/*.zshrc(on); do
-	source ${Fichier}
+# Charge les fichiers du dossier .zsh
+for file in ${ZDOTDIR}/*.zshrc(on); do
+    source ${file}
 done
 
-[[ -e ${DIRCOLORS_CONFIG_FILE} ]] && eval $(dircolors ${DIRCOLORS_CONFIG_FILE})
+local dircolors_config_file="${ZDOTDIR}/dircolors" \
+    && [[ -e ${dircolors_config_file} ]] \
+    && eval $(dircolors ${dircolors_config_file})
 
 # Options
 HISTFILE=~/.zsh_history

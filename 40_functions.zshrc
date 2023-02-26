@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 func_dir="${ZDOTDIR}/functions"
-fpath=($func_dir $fpath)
+fpath=($fpath $func_dir)
 
 for file in ${func_dir}/*; do
 	[[ -d $file ]] && continue
