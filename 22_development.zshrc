@@ -29,7 +29,7 @@ alias di='docker run -it'
 
 alias dc='docker-compose'
 alias dce='dc exec'
-alias drb='docker-compose down && docker-compose up -d --build'
+alias drb='docker-compose down; docker-compose up -d --build'
 alias dcd='docker-compose down --remove-orphans'
 alias dcu='docker-compose up -d'
 alias dce='docker-compose exec'
