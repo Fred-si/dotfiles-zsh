@@ -20,3 +20,5 @@ for p in "${HOME}/.local/bin" "${HOME}/.cargo/bin"; do
 done
 unset p
 
+[[ -f "$HOME/.cargo/env" ]] \
+    && source "$HOME/.cargo/env"
