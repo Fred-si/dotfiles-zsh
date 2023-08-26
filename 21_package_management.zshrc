@@ -2,6 +2,7 @@
 
 if [[ -e /usr/bin/pacman ]]; then
 	alias pac='pacman'
+    alias pkgfile='pac -Qo'
 
 	autoload upgrade
 	autoload pacsearch
@@ -13,6 +14,10 @@ if [[ -e /usr/bin/pacman ]]; then
 
 	# Mise à jour et recherche de paquets
 	alias upd='sudo pacman -Sy && pacman -Qu'
+
+    if where yay >/dev/null; then
+        alias yay='yay --answerclean All --answerdiff None --answeredit None --cleanafter --removemake --sudoloop'
+    fi
 
 elif [[ -e /usr/bin/apt ]]; then
 	# Installation/suppression de paquet
