@@ -3,6 +3,7 @@
 if [[ -e /usr/bin/pacman ]]; then
 	alias pac='pacman'
     alias pkgfile='pac -F'
+    alias why='pac -Rp'
 
 	autoload upgrade
 	autoload pacsearch
