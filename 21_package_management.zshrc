@@ -2,7 +2,7 @@
 
 if [[ -e /usr/bin/pacman ]]; then
 	alias pac='pacman'
-    alias pkgfile='pac -Qo'
+    alias pkgfile='pac -F'
 
 	autoload upgrade
 	autoload pacsearch
