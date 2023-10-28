@@ -14,6 +14,8 @@ where nvim > /dev/null \
 	&& export EDITOR='/usr/bin/nvim' \
 	|| export EDITOR='/usr/bin/vim'
 
+export DIFFPROG="$EDITOR -d"
+
 # Fichier chargé automatiquement par l'interpréteur python au démarrage
 where bpython > /dev/null \
     && local autoloads="${XDG_CONFIG_HOME}/bpython/autoloads" \
