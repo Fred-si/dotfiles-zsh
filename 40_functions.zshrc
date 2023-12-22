@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+autoload -U zmv
+
 for dir in "${ZDOTDIR}/functions" "${ZDOTDIR}/functions/local"; do
 	[[ -d "${dir}" ]] \
 		|| continue
