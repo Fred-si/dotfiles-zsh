@@ -1,7 +1,18 @@
 #!/usr/bin/zsh
 
 convert_id() {
-    id=$(echo ${1:2} |tr '[:upper:]' '[:lower:]')
+    local to_x_expression='false'
 
-    echo -n "${id:0:8}-${id:8:4}-${id:12:4}-${id:16:4}-${id:20}"
+    if [[ $1 = '-x' ]]; then
+        to_x_expression='true'
+        shift
+    fi
+
+    id=$(echo ${1#*x} |tr '[:upper:]' '[:lower:]'| tr -d '-')
+
+    if [[ $to_x_expression = 'true' ]]; then
+        echo -n "x'${id}'"
+    else
+        echo -n "${id:0:8}-${id:8:4}-${id:12:4}-${id:16:4}-${id:20}"
+    fi
 }
