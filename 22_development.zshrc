@@ -4,6 +4,14 @@
 alias igt='git'
 alias gti='git'
 
+alias gl='git log'
+alias gs='git status'
+alias gc='git commit'
+alias gch='git checkout'
+
+alias git_modified_files='git diff --name-only'
+alias gmf='git_modified_files'
+
 alias gf='git-flow'
 alias gff='git-flow feature'
 
