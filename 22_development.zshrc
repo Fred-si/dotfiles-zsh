@@ -11,6 +11,7 @@ alias gch='git checkout'
 
 alias git_modified_files='git diff --name-only'
 alias gmf='git_modified_files'
+alias -g GMF='$(git_modified_files)'
 
 alias gf='git-flow'
 alias gff='git-flow feature'
@@ -30,6 +31,8 @@ alias zw='zwatch'
     && alias python='python3'
 
 alias remove_cython='rm -rf ~/.cache/JetBrains/**/cythonExtensions'
+alias snapshot-update='pytest --snapshot-update'
+alias su='snapshot-update'
 
 # Docker
 alias dr='docker run'
@@ -44,3 +47,6 @@ alias dr='dcd; dcu'
 alias drb='dcd; dc up -d --build'
 alias drbf='dc up -d --always-recreate-deps --force-recreate --build'
 alias dcc='dc down --remove-orphans --rmi all --volumes'
+
+alias create_python_project='cookiecutter git+ssh://git@github.com/Fred-si/python-template.git'
+
