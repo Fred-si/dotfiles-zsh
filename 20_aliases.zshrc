@@ -33,6 +33,7 @@ alias grep='grep --color=auto'
 alias bp='bpython'
 alias ping='ping -c 10'
 alias mdp='pwgen -sy 15 1 | xclip -selection c'
+alias sst='ssh -o RemoteCommand="tmux new-session -A -s fred"'
 
 # Zsh
 alias so="source ${ZDOTDIR}/zshrc"
