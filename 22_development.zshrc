@@ -33,6 +33,7 @@ alias zw='zwatch'
 alias remove_cython='rm -rf ~/.cache/JetBrains/**/cythonExtensions'
 alias snapshot-update='pytest --snapshot-update'
 alias su='snapshot-update'
+alias ms='mypy --follow-import=silent'
 
 # Docker
 alias dr='docker run'
