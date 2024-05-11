@@ -48,37 +48,37 @@ venv() {
             deactivate
         fi
 
-        if [[ ! -e 'venv' ]]; then
-            print_info "Venv not exist, create it"
-
-            python${python_version} -m venv venv || return 1
-
-            if [[ ! -e 'requirements.txt' ]]; then 
-                print_info "Create requirements.txt"
-                touch requirements.txt
-            fi
-
-            if [[ ! -e 'requirements-dev.txt' ]]; then 
-                print_info "Create requirements-dev.txt"
-                echo '-r requirements.txt' > requirements-dev.txt
-            fi
-
-            mypy='venv/bin/mypy'
-            [[ -e $mypy ]] && $mypy --install-types --non_interactive .
-
-            pre_commit='venv/bin/pre-commit'
-            [[ -e $pre_commit ]] && $pre_commit install --install-hooks
-        else
+        if [[ -e 'venv' ]]; then
             print_info "Venv already exist, skip init"
+            source venv/bin/activate && return 0 || return 1
         fi
 
+        print_info "Venv not exist, create it"
+
+        python${python_version} -m venv venv || return 1
         source venv/bin/activate || return 1
 
         print_info "Upgrade pip"
         pip install --upgrade pip
 
+        requirements='requirements.txt'
+        requirements_dev='requirements-dev.txt'
         print_info "Install requirements"
-        pip install -r requirements-dev.txt
+        if [[ -e $requirements_dev ]]; then
+            pip install -r $requirements_dev
+        elif [[ -e $requirements ]]; then
+            pip install -r $requirements
+        else
+            print_info "No requirements file found"
+        fi
+
+        mypy='venv/bin/mypy'
+        [[ -f $mypy ]] && $mypy --install-types --non-interactive .
+
+        pre_commit='venv/bin/pre-commit'
+        [[ -f $pre_commit ]] && $pre_commit install --install-hooks
+
+        return 0
     }
 
     if [[ $1 == '-d' ]] || [[ $1 == '--destroy' ]]; then
