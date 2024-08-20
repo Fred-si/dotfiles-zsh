@@ -39,7 +39,7 @@ alias ms='mypy --follow-import=silent'
 alias dr='docker run'
 alias di='docker run -it'
 
-alias dc='docker-compose'
+alias dc='docker compose'
 alias dcu='dc up -d'
 alias dce='dc exec'
 alias dcd='dc down --remove-orphans'
