@@ -13,6 +13,10 @@ for file in ${ZDOTDIR}/*.zshrc(on); do
     source ${file}
 done
 
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+    source /etc/profile.d/vte.sh
+fi
+
 local dircolors_config_file="${ZDOTDIR}/dircolors" \
     && [[ -e ${dircolors_config_file} ]] \
     && eval $(dircolors ${dircolors_config_file}) \
