@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+export PATH="${PATH}:${ZDOTDIR}/misc_tools"
 export CORRECT_IGNORE_FILE='.*'
 
 [[ $HOST == "lysa" ]] \
