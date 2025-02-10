@@ -14,7 +14,7 @@ for file in ${ZDOTDIR}/*.zshrc(on); do
 done
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
+    source /etc/profile.d/vte*.sh
 fi
 
 local dircolors_config_file="${ZDOTDIR}/dircolors" \
