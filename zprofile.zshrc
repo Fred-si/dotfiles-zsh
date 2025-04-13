@@ -5,7 +5,7 @@ if [[ ! -n $TMUX ]]; then
 	tmux start-server
 
 	case $HOST in
-		"burp")
+		"burp"|"xr591")
 			if [[ -t 0 && $(tty) =~ /dev/tty ]]\
 			   && ! pgrep -u $USER startx &> /dev/null; then
 				startx
