@@ -2,8 +2,14 @@
 function bak() { # Crée une archive tar de chaque fichier passé en  paramètre
 	date=$(date "+%Y-%m-%d_%H-%M-%S")
 
+    extension=''
+    if [[ "$1" == '-c' ]] || [[ "$1" == '--compress' ]]; then
+        extension='.gz'
+        shift
+    fi
+
 	for file in $*; do
-		tar -cvf ${file#/}_$date.tar ${file}
+		tar -acvf "${file#/}_$date.tar${extension}" ${file}
 	done
 }
 
